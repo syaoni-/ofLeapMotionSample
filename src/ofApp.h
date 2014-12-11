@@ -3,6 +3,8 @@
 #include "ofMain.h"
 #include "Particle.h"
 #include "ofxLeapMotion.h"
+#include "ClothParticle.h"
+#include "ClothSpring.h"
 
 #define NUM 100
 
@@ -26,6 +28,8 @@ class ofApp : public ofBaseApp{
         /* Particle */
         vector <Particle> particles;
 
+    //----------------------------------------------------LeapMotion
+    
         // Leap Motionのコントローラー
         Controller controller;
         // カメラ
@@ -39,5 +43,9 @@ class ofApp : public ofBaseApp{
         void drawPoint(ofPoint point);
         void drawFingerBox(Finger finger, ofPoint tip, ofPoint base);
         void drawPalm(Hand hand);
+    
+    //-----------------------------------------------------Cloth Particle
+        vector <ClothParticle> ps;
+        vector <ClothSpring> sp;
     
 };

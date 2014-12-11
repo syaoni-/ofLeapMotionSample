@@ -13,6 +13,62 @@ void ofApp::setup(){
     camera.setFov(60);
     camera.setPosition(0, 200, camdistance);
     camera.lookAt(ofVec3f(0, 200, 0));
+    
+    //----------------------------------------------Cloth Particle
+    
+    int rows = 20;
+    int cols = 20;
+    
+    //position all particles
+    for (int i=0; i<rows*cols; i++) {
+        int x = int(i) % cols * 20;
+        int y = int(i) / cols * 20;
+        ClothParticle p(ofVec3f(x,y,0), y==0 ? 0 : 1, .96);
+        ps.push_back(p);
+    }
+    
+    //create all springs
+    for (int i=0; i<rows*cols; i++) {
+        int x = int(i) % cols;
+        int y = int(i) / cols;
+        
+        //horizontal structural springs
+        if (x<cols-1) {
+            sp.push_back(ClothSpring(&ps[i],&ps[i+1]));
+        }
+        
+        //vertical structural springs
+        if (y<rows-1) {
+            sp.push_back(ClothSpring(&ps[i],&ps[i+cols]));
+        }
+        
+        //shear springs left to right
+        if (x<cols-1 && y<rows-1) {
+            sp.push_back(ClothSpring(&ps[i],&ps[i+cols+1]));
+        }
+        
+        //shear springs right to left
+        if (y>0 && x<cols-1 && y<rows) {
+            sp.push_back(ClothSpring(&ps[i],&ps[i-cols+1]));
+        }
+        
+        //bending springs horizontal
+        if (x<cols-2) {
+            sp.push_back(ClothSpring(&ps[i],&ps[i+2]));
+        }
+        
+        //bending springs vertical
+        if (y<rows-2) {
+            sp.push_back(ClothSpring(&ps[i],&ps[i+2*cols]));
+        }
+        
+        //bending springs diagonal
+        if (y<rows-2 && x<cols-2) {
+            sp.push_back(ClothSpring(&ps[i],&ps[i+2+2*cols]));
+        }
+    }
+
+    
 }
 
 //--------------------------------------------------------------
@@ -29,6 +85,24 @@ void ofApp::update(){
         //        if (particles[i].outWindow())
         //            particles.erase(particles.begin() + i);
     }
+    
+    //----------------------------------------------Cloth Particle
+    //apply forces
+    for (int i=0; i<ps.size(); i++) {
+        ps[i].addForce(ofVec3f(0,1.1,0));
+        ps[i].addForce(ofVec3f(0,0,sin(ofGetElapsedTimef() * 1.6)*8));
+    }
+    
+    //update springs
+    for (int i=0; i<sp.size(); i++) {
+        sp[i].update();
+    }
+    
+    //update particles
+    for (int i=0; i<ps.size(); i++) {
+        ps[i].update();
+    }
+
     
 }
 
@@ -80,11 +154,35 @@ void ofApp::draw(){
         particles[i].draw();
         ofCurveVertex(particles[i].pos.x, particles[i].pos.y);
         
-        //画面外に出た際に消去する
+        //ある程度画面外に出た際にそのParticleを消去する
         if (particles[i].outWindow())
             particles.erase(particles.begin() + i);
     }
     ofEndShape();
+
+    
+    //-----------------------------------------------------Cloth Particle
+    ofTranslate(ofGetWidth()/2-200, 100, -300);
+    
+    //springs
+    ofSetColor(255, 255, 255);
+    glBegin(GL_LINES);
+    for (int i=0; i<sp.size(); i++) {
+        glVertex3f(sp[i].a->pos.x, sp[i].a->pos.y, sp[i].a->pos.z);
+        glVertex3f(sp[i].b->pos.x, sp[i].b->pos.y, sp[i].b->pos.z);
+    }
+    glEnd();
+    
+    //particles
+    ofSetColor(0, 0, 255);
+    glPointSize(5);
+    glBegin(GL_POINTS);
+    for (int i=0; i<ps.size(); i++) {
+        glVertex3f(ps[i].pos.x, ps[i].pos.y, ps[i].pos.z);
+    }
+    glEnd();
+
+    
 
 }
 

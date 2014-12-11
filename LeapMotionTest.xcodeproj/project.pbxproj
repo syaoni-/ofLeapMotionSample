@@ -129,6 +129,8 @@
 		CD4FF4B01A3040CF00385524 /* libLeap.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libLeap.dylib; path = ../../../../Library/LeapSDK/lib/libLeap.dylib; sourceTree = "<group>"; };
 		CD4FF4B41A30585000385524 /* Particle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Particle.h; sourceTree = "<group>"; };
 		CD4FF4B51A30587A00385524 /* Particle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Particle.cpp; sourceTree = "<group>"; };
+		CDDA13CE1A397442003F540E /* ClothParticle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClothParticle.h; sourceTree = "<group>"; };
+		CDDA13D11A397538003F540E /* ClothSpring.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClothSpring.h; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
 		E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
@@ -464,6 +466,8 @@
 				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
 				CD4FF4B51A30587A00385524 /* Particle.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
+				CDDA13CE1A397442003F540E /* ClothParticle.h */,
+				CDDA13D11A397538003F540E /* ClothSpring.h */,
 				CD4FF4B41A30585000385524 /* Particle.h */,
 			);
 			path = src;
