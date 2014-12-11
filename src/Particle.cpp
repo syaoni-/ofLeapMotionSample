@@ -50,6 +50,7 @@ void Particle::draw(){
     ofCircle(pos.x, pos.y, 3);
 }
 
+//ある程度画面外に出た要素を消去する
 bool Particle::outWindow(){
     if (pos.x < 0 - outOffsetX || pos.x > ofGetWidth() + outOffsetX || pos.y < 0 - outOffsetY || pos.y > ofGetHeight() + outOffsetY)
         return true;

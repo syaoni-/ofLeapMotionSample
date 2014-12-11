@@ -15,7 +15,7 @@ struct ClothSpring {
     float k;    //バネ係数
     float rest_length;
     
-    ClothSpring(ClothParticle *a, ClothParticle *b, float k = .2) : a(a), b(b), k(k) {
+    ClothSpring(ClothParticle *a, ClothParticle *b, float k = 0.2) : a(a), b(b), k(k) {
         rest_length = (b->pos - a->pos).length();
     }
     

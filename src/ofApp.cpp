@@ -23,7 +23,7 @@ void ofApp::setup(){
     for (int i=0; i<rows*cols; i++) {
         int x = int(i) % cols * 20;
         int y = int(i) / cols * 20;
-        ClothParticle p(ofVec3f(x,y,0), y==0 ? 0 : 1, .96);
+        ClothParticle p(ofVec3f(x,y,0), y==0 ? 0 : 1, 0.96);
         ps.push_back(p);
     }
     
@@ -88,9 +88,17 @@ void ofApp::update(){
     
     //----------------------------------------------Cloth Particle
     //apply forces
+    ofVec3f fingerDir;
     for (int i=0; i<ps.size(); i++) {
-        ps[i].addForce(ofVec3f(0,1.1,0));
-        ps[i].addForce(ofVec3f(0,0,sin(ofGetElapsedTimef() * 1.6)*8));
+        ps[i].addForce(ofVec3f(0,1.1,0)); //Gravity?
+        //ps[i].addForce(ofVec3f(0,0,sin(ofGetElapsedTimef() * 1.6)*8)); //前後に振る
+        
+        //指との距離が一定値以下なら力を加える
+        for (int j = 0; j < 5; j++) {
+            fingerDir = ps[i].pos - fingerPos[j];
+            if ( fingerDir.length() < 40)
+                ps[i].addForce( fingerDir.normalize()*1000 );
+        }
     }
     
     //update springs
@@ -123,14 +131,20 @@ void ofApp::draw(){
         for(int j=0; j<hand.fingers().count(); j++) {
             Finger finger = frame.fingers()[j];
             drawFinger(finger);
-            if (i == 0 && j == 1) {
-                Particle newParticle;
-                float vx = ofRandom(-3, 3);
-                float vy = ofRandom(-3, 3);
-                newParticle.setInitialCondition(finger.tipPosition().x*2 + ofGetWidth()/2, -finger.tipPosition().y*2 + ofGetHeight(), vx, vy);
-                particles.push_back(newParticle);
-            }
-                
+//            if (i == 0 && j == 1) {
+//                Particle newParticle;
+//                float vx = ofRandom(-3, 3);
+//                float vy = ofRandom(-3, 3);
+//                indexFingerPos.x = finger.tipPosition().x*2;
+//                indexFingerPos.y = -finger.tipPosition().y*2 + ofGetHeight();
+//                indexFingerPos.z = finger.tipPosition().z + 50;
+//                newParticle.setInitialCondition(finger.tipPosition().x*2 + ofGetWidth()/2, -finger.tipPosition().y*2 + ofGetHeight(), vx, vy);
+//                particles.push_back(newParticle);
+//            }
+            fingerPos[j].x = finger.tipPosition().x*2;
+            fingerPos[j].y = -finger.tipPosition().y*2 + ofGetHeight();
+            fingerPos[j].z = finger.tipPosition().z + 50;
+            
         }
         // Handを描画
         drawPalm(hand);
@@ -147,6 +161,9 @@ void ofApp::draw(){
     //画面左上にメッセージを表示
     string message = "current particle num = " + ofToString(particles.size(),0);
     ofDrawBitmapString(message, 20, 20);
+    string clothMessage = "current indexFingerPos x : " + ofToString(indexFingerPos.x) + "y : " + ofToString(indexFingerPos.y) + "z : " + ofToString(indexFingerPos.z);
+    ofDrawBitmapString(clothMessage, 20, 40);
+
     
     ofNoFill();
     ofBeginShape();
@@ -159,6 +176,14 @@ void ofApp::draw(){
             particles.erase(particles.begin() + i);
     }
     ofEndShape();
+    
+    //Finger tip
+    ofSetColor(255, 255, 0);
+    glBegin(GL_POINT);
+    for(int i = 0; i < 5; i++) {
+        glVertex3f(fingerPos[i].x, fingerPos[i].y, fingerPos[i].z);
+    }
+    glEnd();
 
     
     //-----------------------------------------------------Cloth Particle
@@ -177,11 +202,11 @@ void ofApp::draw(){
     ofSetColor(0, 0, 255);
     glPointSize(5);
     glBegin(GL_POINTS);
+    glVertex3f(indexFingerPos.x, indexFingerPos.y, indexFingerPos.z);
     for (int i=0; i<ps.size(); i++) {
         glVertex3f(ps[i].pos.x, ps[i].pos.y, ps[i].pos.z);
     }
     glEnd();
-
     
 
 }

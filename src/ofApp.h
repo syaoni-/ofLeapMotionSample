@@ -43,6 +43,8 @@ class ofApp : public ofBaseApp{
         void drawPoint(ofPoint point);
         void drawFingerBox(Finger finger, ofPoint tip, ofPoint base);
         void drawPalm(Hand hand);
+        ofVec3f indexFingerPos;
+        ofVec3f fingerPos[5];
     
     //-----------------------------------------------------Cloth Particle
         vector <ClothParticle> ps;
