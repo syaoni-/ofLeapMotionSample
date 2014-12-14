@@ -14,6 +14,12 @@ void ofApp::setup(){
     camera.setPosition(0, 200, camdistance);
     camera.lookAt(ofVec3f(0, 200, 0));
     
+    //----------------------------------------------set image
+    
+    guu.loadImage("guu.png");
+    choki.loadImage("choki.png");
+    paa.loadImage("paa.jpeg");
+    
     //----------------------------------------------Cloth Particle
     
     int rows = 20;
@@ -117,6 +123,11 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     
+    /* 毎回加速度をリセット */
+    for(int i=0; i<FINGER_NUM; i++)
+        fingerAcceleration[i] = 0;
+    
+    
     /* LeapMotion */
     camera.begin();
     // 背景を黒に塗りつぶし
@@ -131,20 +142,14 @@ void ofApp::draw(){
         for(int j=0; j<hand.fingers().count(); j++) {
             Finger finger = frame.fingers()[j];
             drawFinger(finger);
-//            if (i == 0 && j == 1) {
-//                Particle newParticle;
-//                float vx = ofRandom(-3, 3);
-//                float vy = ofRandom(-3, 3);
-//                indexFingerPos.x = finger.tipPosition().x*2;
-//                indexFingerPos.y = -finger.tipPosition().y*2 + ofGetHeight();
-//                indexFingerPos.z = finger.tipPosition().z + 50;
-//                newParticle.setInitialCondition(finger.tipPosition().x*2 + ofGetWidth()/2, -finger.tipPosition().y*2 + ofGetHeight(), vx, vy);
-//                particles.push_back(newParticle);
-//            }
-            fingerPos[j].x = finger.tipPosition().x*2;
-            fingerPos[j].y = -finger.tipPosition().y*2 + ofGetHeight();
-            fingerPos[j].z = finger.tipPosition().z + 50;
             
+            /*Finger acceleration*/
+            preFingerPos[(i+1)*j] = fingerPos[(i+1)*j];
+            fingerPos[(i+1)*j].x = finger.tipPosition().x*2;
+            fingerPos[(i+1)*j].y = -finger.tipPosition().y*2 + ofGetHeight();
+            fingerPos[(i+1)*j].z = finger.tipPosition().z + 50;
+            ofVec3f difPos = ( fingerPos[(i+1)*j] - preFingerPos[(i+1)*j] );
+            fingerAcceleration[(i+1)*j] = difPos.length();
         }
         // Handを描画
         drawPalm(hand);
@@ -152,18 +157,19 @@ void ofApp::draw(){
     camera.end();
     
     
-    /* particle */
-//    ofPushStyle();
-//    glDepthFunc(GL_ALWAYS); // draw on top of everything
     
+    
+    //------------------------------------------------------Acceleration
+    logTime += ofGetElapsedTimef() - preElapsedTime;
+    preElapsedTime = ofGetElapsedTimef();
+    if ( logTime > LOG_INTERVAL ) {
+        logTime = 0;
+    }
+    
+    
+    
+    //-----------------------------------------------------Sample Particle
     ofSetColor(255, 255, 255);
-    
-    //画面左上にメッセージを表示
-    string message = "current particle num = " + ofToString(particles.size(),0);
-    ofDrawBitmapString(message, 20, 20);
-    string clothMessage = "current indexFingerPos x : " + ofToString(indexFingerPos.x) + "y : " + ofToString(indexFingerPos.y) + "z : " + ofToString(indexFingerPos.z);
-    ofDrawBitmapString(clothMessage, 20, 40);
-
     
     ofNoFill();
     ofBeginShape();
@@ -177,10 +183,39 @@ void ofApp::draw(){
     }
     ofEndShape();
     
-    //Finger tip
+    
+    
+    
+    
+    //--------------------------------------------------Debug Log
+    //画面左上にメッセージを表示
+    
+    /* 人差し指の座標 */
+    string clothMessage = "current fingerPos[1] x : " + ofToString(fingerPos[1].x) + " y : " + ofToString(fingerPos[1].y) + " z : " + ofToString(fingerPos[1].z);
+    ofDrawBitmapString(clothMessage, 20, 40);
+    
+    /* 人差し指の加速度 */
+    string accelMessage = "current finger[1] acceleration = " + ofToString(fingerAcceleration[1],0);
+    ofDrawBitmapString(accelMessage, 20, 60);
+    
+    /* 人差し指の加速度を色で分かりやすく */
+    ofSetColor(fingerAcceleration[1], fingerAcceleration[1], 0);
+    ofFill();
+    ofCircle(50, 100, 30);
+    
+    /* 手の形状検知 */
+    ofSetColor(255, 255, 255);
+    int leftHandPatern = LHandPaternDic(fingerPos);
+    if( guuDic(fingerPos) ) guu.draw(20, 150, 50, 50); //グー描画
+    if( chokiDic(fingerPos) ) choki.draw(60, 150, 50, 50); //チョキ描画
+    if( paaDic(fingerPos) ) paa.draw(100, 150, 50, 50); //パー描画
+    
+    
+    
+    //-----------------------------------------------------Leap Motion
     ofSetColor(255, 255, 0);
     glBegin(GL_POINT);
-    for(int i = 0; i < 5; i++) {
+    for(int i = 0; i < 10; i++) {
         glVertex3f(fingerPos[i].x, fingerPos[i].y, fingerPos[i].z);
     }
     glEnd();
@@ -202,13 +237,11 @@ void ofApp::draw(){
     ofSetColor(0, 0, 255);
     glPointSize(5);
     glBegin(GL_POINTS);
-    glVertex3f(indexFingerPos.x, indexFingerPos.y, indexFingerPos.z);
     for (int i=0; i<ps.size(); i++) {
         glVertex3f(ps[i].pos.x, ps[i].pos.y, ps[i].pos.z);
     }
     glEnd();
     
-
 }
 
 void ofApp::drawSphere(Vector vector, float radius) {
@@ -311,6 +344,23 @@ void ofApp::drawPalm(Hand hand) {
     ofPopMatrix();
 }
 
+
+//グーの形状検知
+bool guuDic(ofVec3f fPos[]){
+    
+    return false;
+}
+
+//チョキの形状検知
+bool chokiDic(ofVec3f fPos[]){
+    return false;
+}
+
+
+//パーの形状検知
+bool paaDic(ofVec3f fPos[]){
+    return false;
+}
 
 
 //--------------------------------------------------------------

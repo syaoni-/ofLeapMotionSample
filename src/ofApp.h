@@ -5,8 +5,11 @@
 #include "ofxLeapMotion.h"
 #include "ClothParticle.h"
 #include "ClothSpring.h"
+#include "FingerAcceleration.h"
 
 #define NUM 100
+#define FINGER_NUM 10
+#define LOG_INTERVAL 0.5
 
 class ofApp : public ofBaseApp{
 
@@ -44,7 +47,24 @@ class ofApp : public ofBaseApp{
         void drawFingerBox(Finger finger, ofPoint tip, ofPoint base);
         void drawPalm(Hand hand);
         ofVec3f indexFingerPos;
-        ofVec3f fingerPos[5];
+        ofVec3f fingerPos[FINGER_NUM];
+        ofVec3f preFingerPos[FINGER_NUM]; //前フレームの指の位置
+
+        /* 加速度 */
+        float preElapsedTime;
+        float logTime;
+        float fingerAcceleration[FINGER_NUM];
+        FingerAcceleration fingerLog[FINGER_NUM];
+    
+        /* 手の形状検知 */
+        int LHandPaternDic(ofVec3f fPos[]);
+        bool guuDic(ofVec3f fPos[]);
+        bool chokiDic(ofVec3f fPos[]);
+        bool paaDic(ofVec3f fPos[]);
+        ofImage guu;
+        ofImage choki;
+        ofImage paa;
+    
     
     //-----------------------------------------------------Cloth Particle
         vector <ClothParticle> ps;

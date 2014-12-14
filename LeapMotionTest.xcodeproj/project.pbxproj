@@ -78,6 +78,7 @@
 
 /* Begin PBXFileReference section */
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
+		CD24A22C1A3D6CC80008CB57 /* FingerAcceleration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FingerAcceleration.h; sourceTree = "<group>"; };
 		CD4FF4641A3037D500385524 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		CD4FF4651A3037D900385524 /* addon_config.mk */ = {isa = PBXFileReference; lastKnownFileType = text; path = addon_config.mk; sourceTree = "<group>"; };
 		CD4FF4671A3037D900385524 /* addons.make */ = {isa = PBXFileReference; lastKnownFileType = text; path = addons.make; sourceTree = "<group>"; };
@@ -468,6 +469,7 @@
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
 				CDDA13CE1A397442003F540E /* ClothParticle.h */,
 				CDDA13D11A397538003F540E /* ClothSpring.h */,
+				CD24A22C1A3D6CC80008CB57 /* FingerAcceleration.h */,
 				CD4FF4B41A30585000385524 /* Particle.h */,
 			);
 			path = src;
