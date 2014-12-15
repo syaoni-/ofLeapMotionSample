@@ -205,10 +205,9 @@ void ofApp::draw(){
     
     /* 手の形状検知 */
     ofSetColor(255, 255, 255);
-    int leftHandPatern = LHandPaternDic(fingerPos);
     if( guuDic(fingerPos) ) guu.draw(20, 150, 50, 50); //グー描画
-    if( chokiDic(fingerPos) ) choki.draw(60, 150, 50, 50); //チョキ描画
-    if( paaDic(fingerPos) ) paa.draw(100, 150, 50, 50); //パー描画
+    if( chokiDic() ) choki.draw(60, 150, 50, 50); //チョキ描画
+    if( paaDic() ) paa.draw(100, 150, 50, 50); //パー描画
     
     
     
@@ -346,19 +345,23 @@ void ofApp::drawPalm(Hand hand) {
 
 
 //グーの形状検知
-bool guuDic(ofVec3f fPos[]){
-    
-    return false;
+bool ofApp::guuDic(ofVec3f *fPos){
+    for(int i=1; i<5; i++) {
+        ofVec3f difPos = fPos[0] - fPos[i];
+        if ( difPos.length() > 100 )
+            return false;
+    }
+    return true;
 }
 
 //チョキの形状検知
-bool chokiDic(ofVec3f fPos[]){
+bool ofApp::chokiDic(){
     return false;
 }
 
 
 //パーの形状検知
-bool paaDic(ofVec3f fPos[]){
+bool ofApp::paaDic(){
     return false;
 }
 

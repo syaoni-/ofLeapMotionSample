@@ -57,10 +57,9 @@ class ofApp : public ofBaseApp{
         FingerAcceleration fingerLog[FINGER_NUM];
     
         /* 手の形状検知 */
-        int LHandPaternDic(ofVec3f fPos[]);
-        bool guuDic(ofVec3f fPos[]);
-        bool chokiDic(ofVec3f fPos[]);
-        bool paaDic(ofVec3f fPos[]);
+        bool guuDic(ofVec3f *fPos);
+        bool chokiDic();
+        bool paaDic();
         ofImage guu;
         ofImage choki;
         ofImage paa;
