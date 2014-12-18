@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofMath.h"
 #include "Particle.h"
 #include "ofxLeapMotion.h"
 #include "ClothParticle.h"
@@ -54,12 +55,12 @@ class ofApp : public ofBaseApp{
         float preElapsedTime;
         float logTime;
         float fingerAcceleration[FINGER_NUM];
-        FingerAcceleration fingerLog[FINGER_NUM];
+        //FingerAcceleration fingerLog[FINGER_NUM];
     
-        /* 手の形状検知 */
+        /* 手の検知 */
         bool guuDic(ofVec3f *fPos);
-        bool chokiDic();
-        bool paaDic();
+        bool chokiDic(ofVec3f hPos, ofVec3f *fPos);
+        bool paaDic(ofVec3f hPos, ofVec3f *fPos);
         ofImage guu;
         ofImage choki;
         ofImage paa;

@@ -133,11 +133,17 @@ void ofApp::draw(){
     // 背景を黒に塗りつぶし
     ofBackground(0, 0, 0);
     
+    //手のひらの位置
+    ofVec3f handPos;
+    
     // フレームを取得
     Frame frame = controller.frame();
     // Handをあるだけ列挙
     for(int i=0; i<frame.hands().count(); i++) {
         Hand hand = frame.hands()[i];
+        handPos.x = hand.palmPosition().x*2;
+        handPos.y = -hand.palmPosition().y*2 + ofGetHeight();
+        handPos.z = hand.palmPosition().z; + 50;
         // Hand内のFingerをあるだけ描画
         for(int j=0; j<hand.fingers().count(); j++) {
             Finger finger = frame.fingers()[j];
@@ -206,8 +212,9 @@ void ofApp::draw(){
     /* 手の形状検知 */
     ofSetColor(255, 255, 255);
     if( guuDic(fingerPos) ) guu.draw(20, 150, 50, 50); //グー描画
-    if( chokiDic() ) choki.draw(60, 150, 50, 50); //チョキ描画
-    if( paaDic() ) paa.draw(100, 150, 50, 50); //パー描画
+    if( chokiDic(handPos, fingerPos) ) choki.draw(60, 150, 50, 50); //チョキ描画
+    if( paaDic(handPos, fingerPos) ) paa.draw(100, 150, 50, 50); //パー描画
+    
     
     
     
@@ -354,14 +361,56 @@ bool ofApp::guuDic(ofVec3f *fPos){
     return true;
 }
 
+
+//TODO
 //チョキの形状検知
-bool ofApp::chokiDic(){
+bool ofApp::chokiDic(ofVec3f hPos, ofVec3f *fPos){
+    
+    //手のひらの外側に出している指の数
+    int outFingerCount = 0;
+    for (int i = 0; i < 5; i++){
+        if ( (hPos - fPos[i]).z > 20 )
+            outFingerCount++;
+    }
+    
+    /* 手のひらと人差し指の距離 */
+    string Message2 = "hand : " + ofToString(hPos,0);
+    ofDrawBitmapString(Message2, 20, 200);
+    string Message3 = "finger[1] : " + ofToString(fPos[1],0);
+    ofDrawBitmapString(Message3, 20, 220);
+    string Message1 = "hand - finger[1] : " + ofToString( (hPos - fPos[1]).z );
+    string Message4 = "hand - finger[2] : " + ofToString( (hPos - fPos[2]).z );
+    string Message5 = "hand - finger[3] : " + ofToString( (hPos - fPos[3]).z );
+    string Message6 = "hand - finger[4] : " + ofToString( (hPos - fPos[4]).z );
+    ofDrawBitmapString(Message1, 20, 240);
+    ofDrawBitmapString(Message4, 20, 260);
+    ofDrawBitmapString(Message5, 20, 280);
+    ofDrawBitmapString(Message6, 20, 300);
+    
+    //手のひらの外側に出している指の数が2本の場合
+    if (outFingerCount == 2)
+        return true;
+    
     return false;
 }
 
 
+//TODO
 //パーの形状検知
-bool ofApp::paaDic(){
+bool ofApp::paaDic(ofVec3f hPos, ofVec3f *fPos){
+    
+    //手のひらの外側に出している指の数
+    int outFingerCount = 0;
+    for (int i = 0; i < 5; i++){
+        if ( (hPos - fPos[i]).z > 0 )
+            outFingerCount++;
+    }
+
+    
+    //手のひらの外側に出している指の数が2本の場合
+    if (outFingerCount >= 4)
+        return true;
+    
     return false;
 }
 
