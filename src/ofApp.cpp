@@ -17,10 +17,25 @@ void ofApp::setup(){
     
     //----------------------------------------------Leap Motion
     controller.enableGesture(Leap::Gesture::TYPE_CIRCLE);
+    controller.enableGesture(Leap::Gesture::TYPE_KEY_TAP);
     controller.enableGesture(Leap::Gesture::TYPE_SCREEN_TAP);
+    controller.enableGesture(Leap::Gesture::TYPE_SWIPE);
     //サークルジェスチャの設定
     //controller.config().setFloat("Gesture.Circle.MinRadius", 10.0);
     //controller.config().setFloat("Gesture.Circle.MinArc", 0.5);
+    //キータップの設定
+    //controller.config().setFloat("Gesture.KeyTap.MinDownVelocity", 40.0);
+    //controller.config().setFloat("Gesture.KeyTap.HistorySeconds", .2);
+    //controller.config().setFloat("Gesture.KeyTap.MinDistance", 8.0);
+    //スクリーンタップジェスチャの設定
+    //controller.config().setFloat("Gesture.ScreenTap.MinForwardVelocity", 30.0);
+    //controller.config().setFloat("Gesture.ScreenTap.HistorySeconds", .5);
+    //controller.config().setFloat("Gesture.ScreenTap.MinDistance", 1.0);
+    //スワイプの設定
+    //controller.config().setFloat("Gesture.Swipe.MinLength", 200.0);
+    //controller.config().setFloat("Gesture.Swipe.MinVelocity", 750);
+    
+    //ジェスチャ設定の保存
     //controller.config().save();
     
     
@@ -191,7 +206,7 @@ void ofApp::draw(){
                 break;
                 
             case Gesture::TYPE_SWIPE:
-                printf("Swipe");
+                printf("Swipe :: %fs\n",(*gl).durationSeconds());
                 break;
                 
             default:
