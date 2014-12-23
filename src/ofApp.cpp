@@ -430,20 +430,6 @@ bool ofApp::chokiDic(ofVec3f hPos, ofVec3f *fPos){
             outFingerCount++;
     }
     
-    /* 手のひらと人差し指の距離 */
-    string Message2 = "hand : " + ofToString(hPos,0);
-    ofDrawBitmapString(Message2, 20, 200);
-    string Message3 = "finger[1] : " + ofToString(fPos[1],0);
-    ofDrawBitmapString(Message3, 20, 220);
-    string Message1 = "hand - finger[1] : " + ofToString( (hPos - fPos[1]).z );
-    string Message4 = "hand - finger[2] : " + ofToString( (hPos - fPos[2]).z );
-    string Message5 = "hand - finger[3] : " + ofToString( (hPos - fPos[3]).z );
-    string Message6 = "hand - finger[4] : " + ofToString( (hPos - fPos[4]).z );
-    ofDrawBitmapString(Message1, 20, 240);
-    ofDrawBitmapString(Message4, 20, 260);
-    ofDrawBitmapString(Message5, 20, 280);
-    ofDrawBitmapString(Message6, 20, 300);
-    
     //手のひらの外側に出している指の数が2本の場合
     if (outFingerCount == 2)
         return true;
