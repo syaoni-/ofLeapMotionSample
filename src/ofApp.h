@@ -65,6 +65,9 @@ class ofApp : public ofBaseApp{
         ofImage choki;
         ofImage paa;
     
+        /* 動いている方向 */
+        ofVec3f moveDirection;
+        ofVec3f aboutMoveDirection;
     
     //-----------------------------------------------------Cloth Particle
         vector <ClothParticle> ps;

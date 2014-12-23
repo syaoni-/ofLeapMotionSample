@@ -181,6 +181,8 @@ void ofApp::draw(){
             fingerPos[(i+1)*j].z = finger.tipPosition().z + 50;
             ofVec3f difPos = ( fingerPos[(i+1)*j] - preFingerPos[(i+1)*j] );
             fingerAcceleration[(i+1)*j] = difPos.length();
+            
+            moveDirection = difPos;
         }
         // Handを描画
         drawPalm(hand);
@@ -198,7 +200,8 @@ void ofApp::draw(){
                 printf("ID : %d",(*gl).id()); //Idのみを返す。Int型
                 break;
                 
-            case Gesture::TYPE_KEY_TAP: //タップ
+            case Gesture::TYPE_KEY_TAP: //キータップ
+                printf("Key Tap :: %fs",(*gl).durationSeconds());
                 break;
                 
             case Gesture::TYPE_SCREEN_TAP: //スクリーンタップ
@@ -214,8 +217,6 @@ void ofApp::draw(){
         }
     }
     
-    
-    
     //------------------------------------------------------Acceleration
     logTime += ofGetElapsedTimef() - preElapsedTime;
     preElapsedTime = ofGetElapsedTimef();
@@ -223,6 +224,10 @@ void ofApp::draw(){
         logTime = 0;
     }
     
+    
+    //-----------------------------------------------------Move direction
+    aboutMoveDirection = moveDirection.normalize();
+    printf("moveDirection : x %f : y %f",aboutMoveDirection.x,aboutMoveDirection.y);
     
     
     //-----------------------------------------------------Sample Particle
