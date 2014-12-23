@@ -17,6 +17,11 @@ void ofApp::setup(){
     
     //----------------------------------------------Leap Motion
     controller.enableGesture(Leap::Gesture::TYPE_CIRCLE);
+    controller.enableGesture(Leap::Gesture::TYPE_SCREEN_TAP);
+    //サークルジェスチャの設定
+    //controller.config().setFloat("Gesture.Circle.MinRadius", 10.0);
+    //controller.config().setFloat("Gesture.Circle.MinArc", 0.5);
+    //controller.config().save();
     
     
     //----------------------------------------------set image
@@ -181,7 +186,8 @@ void ofApp::draw(){
             case Gesture::TYPE_KEY_TAP: //タップ
                 break;
                 
-            case Gesture::TYPE_SCREEN_TAP:
+            case Gesture::TYPE_SCREEN_TAP: //スクリーンタップ
+                printf("Screen Tap %fs\n",(*gl).durationSeconds());
                 break;
                 
             case Gesture::TYPE_SWIPE:
