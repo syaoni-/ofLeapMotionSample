@@ -227,9 +227,11 @@ void ofApp::draw(){
     
     //-----------------------------------------------------Move direction
     aboutMoveDirection = moveDirection.normalize();
-    aboutMoveDirection.x > 0.5 ? aboutMoveDirection.x = 1 : aboutMoveDirection.x = 0;
-    aboutMoveDirection.y > 0.5 ? aboutMoveDirection.y = 1 : aboutMoveDirection.y = 0;
-    
+    aboutMoveDirection.x > 0.5 ? aboutMoveDirection.x = 1 : NULL;
+    aboutMoveDirection.x < -0.5 ? aboutMoveDirection.x = -1 : NULL;
+    aboutMoveDirection.y > 0.5 ? aboutMoveDirection.y = 1 : NULL;
+    aboutMoveDirection.y < -0.5 ? aboutMoveDirection.y = -1 : NULL;
+    printf("x : %f y : %f\n",aboutMoveDirection.x, aboutMoveDirection.y);
     
     //-----------------------------------------------------Sample Particle
     ofSetColor(255, 255, 255);
@@ -272,6 +274,9 @@ void ofApp::draw(){
     if( chokiDic(handPos, fingerPos) ) choki.draw(60, 150, 50, 50); //チョキ描画
     if( paaDic(handPos, fingerPos) ) paa.draw(100, 150, 50, 50); //パー描画
     
+    /* 手の動く方向 */
+    ofTriangle(50, 250, 100, 250, 75, 250 + 50*aboutMoveDirection.y);
+    ofTriangle(75, 300, 75, 350, 75+50*aboutMoveDirection.x, 325);
     
     
     
