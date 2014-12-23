@@ -14,6 +14,11 @@ void ofApp::setup(){
     camera.setPosition(0, 200, camdistance);
     camera.lookAt(ofVec3f(0, 200, 0));
     
+    
+    //----------------------------------------------Leap Motion
+    controller.enableGesture(Leap::Gesture::TYPE_CIRCLE);
+    
+    
     //----------------------------------------------set image
     
     guu.loadImage("guu.png");
@@ -162,6 +167,31 @@ void ofApp::draw(){
     }
     camera.end();
     
+    
+    //LeapMotion Gesture
+    GestureList gestures = frame.gestures();
+    for (GestureList::const_iterator gl = gestures.begin(); gl != frame.gestures().end(); gl++) {
+        switch ((*gl).type()) {
+            case Gesture::TYPE_CIRCLE: //円のジェスチャ
+                printf("Circle :: %f s\n",(*gl).durationSeconds());
+                std::cout << (*gl).toString() << std::endl; //ジェスチャーの取得したID(Gesture Id:n というString型で返す)
+                printf("ID : %d",(*gl).id()); //Idのみを返す。Int型
+                break;
+                
+            case Gesture::TYPE_KEY_TAP: //タップ
+                break;
+                
+            case Gesture::TYPE_SCREEN_TAP:
+                break;
+                
+            case Gesture::TYPE_SWIPE:
+                printf("Swipe");
+                break;
+                
+            default:
+                break;
+        }
+    }
     
     
     
