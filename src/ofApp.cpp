@@ -227,7 +227,8 @@ void ofApp::draw(){
     
     //-----------------------------------------------------Move direction
     aboutMoveDirection = moveDirection.normalize();
-    printf("moveDirection : x %f : y %f",aboutMoveDirection.x,aboutMoveDirection.y);
+    aboutMoveDirection.x > 0.5 ? aboutMoveDirection.x = 1 : aboutMoveDirection.x = 0;
+    aboutMoveDirection.y > 0.5 ? aboutMoveDirection.y = 1 : aboutMoveDirection.y = 0;
     
     
     //-----------------------------------------------------Sample Particle
