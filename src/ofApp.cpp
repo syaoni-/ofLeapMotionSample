@@ -41,9 +41,9 @@ void ofApp::setup(){
     
     //----------------------------------------------set image
     
-    guu.loadImage("guu.png");
-    choki.loadImage("choki.png");
-    paa.loadImage("paa.jpeg");
+//    guu.loadImage("guu.png");
+//    choki.loadImage("choki.png");
+//    paa.loadImage("paa.jpeg");
     
     //----------------------------------------------Cloth Particle
     
@@ -272,9 +272,9 @@ void ofApp::draw(){
     
     /* 手の形状検知 */
     ofSetColor(255, 255, 255);
-    if( guuDic(fingerPos) ) guu.draw(20, 150, 50, 50); //グー描画
-    if( chokiDic(handPos, fingerPos) ) choki.draw(60, 150, 50, 50); //チョキ描画
-    if( paaDic(handPos, fingerPos) ) paa.draw(100, 150, 50, 50); //パー描画
+//    if( guuDic(fingerPos) ) guu.draw(20, 150, 50, 50); //グー描画
+//    if( chokiDic(handPos, fingerPos) ) choki.draw(60, 150, 50, 50); //チョキ描画
+//    if( paaDic(handPos, fingerPos) ) paa.draw(100, 150, 50, 50); //パー描画
     
     /* 手の動く方向 */
     ofTriangle(50, 250, 100, 250, 75, 250 + 50*aboutMoveDirection.y);
