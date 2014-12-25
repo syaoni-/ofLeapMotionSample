@@ -74,7 +74,10 @@ class ofApp : public ofBaseApp{
         ofVec3f aboutMoveDirection;
     
         /* 叩き */
-        bool slapDic();
+        bool slapDec();
+    
+        /* 拍 */
+        bool beatDetection();
     
     //-----------------------------------------------------Cloth Particle
         vector <ClothParticle> ps;

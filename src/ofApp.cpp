@@ -299,7 +299,7 @@ void ofApp::draw(){
     
     
     /* 叩き */
-    if (slapDic()) ofCircle(50, 400, 50);
+    if (slapDec()) ofCircle(50, 400, 50);
     
     //-----------------------------------------------------Leap Motion
     ofSetColor(255, 255, 0);
@@ -486,7 +486,7 @@ bool ofApp::paaDic(ofVec3f hPos, ofVec3f *fPos){
 
 //TODO
 //叩き検知
-bool ofApp::slapDic(){
+bool ofApp::slapDec(){
     
     int counter=0;
     float transVal1; //BAD Name
@@ -527,6 +527,14 @@ bool ofApp::slapDic(){
     
     return true;
 }
+
+
+//拍検知
+bool ofApp::beatDetection(){
+    return false;
+}
+
+
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
