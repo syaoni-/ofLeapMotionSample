@@ -100,6 +100,11 @@ void ofApp::setup(){
     }
 
     
+    //---------------------------------------------------------AceLog
+    for (int i=0; i < LOG_NUM; i++)
+        AceLog.push_back(0);
+    for (int i = 0; i <LOG_NUM; i++)
+        moveDirectionLog.push_back(ofVec3f(0,0,0));
 }
 
 //--------------------------------------------------------------
@@ -181,13 +186,16 @@ void ofApp::draw(){
             fingerPos[(i+1)*j].z = finger.tipPosition().z + 50;
             ofVec3f difPos = ( fingerPos[(i+1)*j] - preFingerPos[(i+1)*j] );
             fingerAcceleration[(i+1)*j] = difPos.length();
-            
+            AceLog.pop_front();
+            AceLog.push_back(difPos.length());
             moveDirection = difPos;
         }
         // Handを描画
         drawPalm(hand);
     }
     camera.end();
+    
+    
     
     
     //LeapMotion Gesture
@@ -217,6 +225,14 @@ void ofApp::draw(){
         }
     }
     
+    
+    
+    //Tool
+    Pointable pointable = frame.pointables().frontmost();
+    if (pointable.isTool())
+        printf("isTool\n");
+    
+    
     //------------------------------------------------------Acceleration
     logTime += ofGetElapsedTimef() - preElapsedTime;
     preElapsedTime = ofGetElapsedTimef();
@@ -226,12 +242,15 @@ void ofApp::draw(){
     
     
     //-----------------------------------------------------Move direction
+    moveDirectionLog.pop_front();
+    moveDirectionLog.push_back(aboutMoveDirection);
+    preMoveDirection = aboutMoveDirection;
     aboutMoveDirection = moveDirection.normalize();
-    aboutMoveDirection.x > 0.5 ? aboutMoveDirection.x = 1 : NULL;
-    aboutMoveDirection.x < -0.5 ? aboutMoveDirection.x = -1 : NULL;
-    aboutMoveDirection.y > 0.5 ? aboutMoveDirection.y = 1 : NULL;
-    aboutMoveDirection.y < -0.5 ? aboutMoveDirection.y = -1 : NULL;
-    printf("x : %f y : %f\n",aboutMoveDirection.x, aboutMoveDirection.y);
+    aboutMoveDirection.x > 0.8 ? aboutMoveDirection.x = 1 : NULL;
+    aboutMoveDirection.x < -0.8 ? aboutMoveDirection.x = -1 : NULL;
+    aboutMoveDirection.y > 0.8 ? aboutMoveDirection.y = 1 : NULL;
+    aboutMoveDirection.y < -0.8 ? aboutMoveDirection.y = -1 : NULL;
+
     
     //-----------------------------------------------------Sample Particle
     ofSetColor(255, 255, 255);
@@ -279,6 +298,8 @@ void ofApp::draw(){
     ofTriangle(75, 300, 75, 350, 75+50*aboutMoveDirection.x, 325);
     
     
+    /* 叩き */
+    if (slapDic()) ofCircle(50, 400, 50);
     
     //-----------------------------------------------------Leap Motion
     ofSetColor(255, 255, 0);
@@ -462,6 +483,50 @@ bool ofApp::paaDic(ofVec3f hPos, ofVec3f *fPos){
     return false;
 }
 
+
+//TODO
+//叩き検知
+bool ofApp::slapDic(){
+    
+    int counter=0;
+    float transVal1; //BAD Name
+    float transVal2;
+    
+    for (list<ofVec3f>::iterator moveLog = moveDirectionLog.begin() ; moveLog != moveDirectionLog.end(); moveLog++) {
+        if (counter < LOG_NUM/2) {
+            transVal1 += (*moveLog).y;
+        } else {
+            transVal2 += (*moveLog).y;
+        }
+        counter++;
+    }
+    
+    transVal1 /= LOG_NUM/2;
+    transVal2 /= LOG_NUM/2;
+    
+    if ( !signbit(transVal1) )
+        return false;
+    
+    if ( signbit(transVal2) )
+        return false;
+    
+    
+    //-----------------------------------
+    //平均加速
+    
+    float averageAce;
+    
+    for (list<float>::iterator accel = AceLog.begin(); accel != AceLog.end(); accel++) {
+        averageAce += (*accel);
+    }
+    averageAce /= LOG_NUM;
+    
+    if (averageAce < 30) {
+        return false;
+    }
+    
+    return true;
+}
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){

@@ -11,6 +11,7 @@
 #define NUM 100
 #define FINGER_NUM 10
 #define LOG_INTERVAL 0.5
+#define LOG_NUM 10
 
 class ofApp : public ofBaseApp{
 
@@ -55,6 +56,7 @@ class ofApp : public ofBaseApp{
         float preElapsedTime;
         float logTime;
         float fingerAcceleration[FINGER_NUM];
+        list<float> AceLog;
         //FingerAcceleration fingerLog[FINGER_NUM];
     
         /* 手の検知 */
@@ -66,8 +68,13 @@ class ofApp : public ofBaseApp{
         ofImage paa;
     
         /* 動いている方向 */
+        list<ofVec3f> moveDirectionLog;
+        ofVec3f preMoveDirection;
         ofVec3f moveDirection;
         ofVec3f aboutMoveDirection;
+    
+        /* 叩き */
+        bool slapDic();
     
     //-----------------------------------------------------Cloth Particle
         vector <ClothParticle> ps;
