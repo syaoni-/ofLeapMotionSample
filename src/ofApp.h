@@ -48,16 +48,12 @@ class ofApp : public ofBaseApp{
         void drawPoint(ofPoint point);
         void drawFingerBox(Finger finger, ofPoint tip, ofPoint base);
         void drawPalm(Hand hand);
-        ofVec3f indexFingerPos;
         ofVec3f fingerPos[FINGER_NUM];
         ofVec3f preFingerPos[FINGER_NUM]; //前フレームの指の位置
 
         /* 加速度 */
-        float preElapsedTime;
-        float logTime;
         float fingerAcceleration[FINGER_NUM];
-        list<float> AceLog;
-        //FingerAcceleration fingerLog[FINGER_NUM];
+
     
         /* 手の検知 */
         bool guuDic(ofVec3f *fPos);
@@ -68,7 +64,6 @@ class ofApp : public ofBaseApp{
         ofImage paa;
     
         /* 動いている方向 */
-        list<ofVec3f> moveDirectionLog;
         ofVec3f preMoveDirection;
         ofVec3f moveDirection;
         ofVec3f aboutMoveDirection;
