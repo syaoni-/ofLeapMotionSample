@@ -9,9 +9,9 @@
 #include "ClothSpring.h"
 #include "FingerAcceleration.h"
 
-#define NUM 100
+//#define NUM 100
 #define FINGER_NUM 10
-#define LOG_INTERVAL 0.5
+//#define LOG_INTERVAL 0.5
 #define LOG_NUM 10
 
 class ofApp : public ofBaseApp{

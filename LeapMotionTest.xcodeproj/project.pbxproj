@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		CD1C972A1A4E77D200FFA81B /* ClothEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD1C97281A4E77D200FFA81B /* ClothEffect.cpp */; };
+		CD1C972D1A4E864F00FFA81B /* LeapMotion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD1C972B1A4E864F00FFA81B /* LeapMotion.cpp */; };
 		CD4FF4AF1A303D6400385524 /* libLeap.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CD4FF4AE1A303D6400385524 /* libLeap.dylib */; };
 		CD4FF4B11A3040CF00385524 /* libLeap.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = CD4FF4B01A3040CF00385524 /* libLeap.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		CD4FF4B61A30587A00385524 /* Particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD4FF4B51A30587A00385524 /* Particle.cpp */; };
-		CDE532811A42E03C00F5EEB0 /* CircleDetection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CDE532801A42E03C00F5EEB0 /* CircleDetection.cpp */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
 		E45BE97C0E8CC7DD009D7055 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */; };
@@ -82,6 +82,8 @@
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		CD1C97281A4E77D200FFA81B /* ClothEffect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClothEffect.cpp; path = ../ClothEffect.cpp; sourceTree = "<group>"; };
 		CD1C97291A4E77D200FFA81B /* ClothEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClothEffect.h; path = ../ClothEffect.h; sourceTree = "<group>"; };
+		CD1C972B1A4E864F00FFA81B /* LeapMotion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LeapMotion.cpp; sourceTree = "<group>"; };
+		CD1C972C1A4E864F00FFA81B /* LeapMotion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeapMotion.h; sourceTree = "<group>"; };
 		CD24A22C1A3D6CC80008CB57 /* FingerAcceleration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FingerAcceleration.h; sourceTree = "<group>"; };
 		CD4FF4641A3037D500385524 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		CD4FF4651A3037D900385524 /* addon_config.mk */ = {isa = PBXFileReference; lastKnownFileType = text; path = addon_config.mk; sourceTree = "<group>"; };
@@ -136,8 +138,6 @@
 		CD4FF4B51A30587A00385524 /* Particle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Particle.cpp; sourceTree = "<group>"; };
 		CDDA13CE1A397442003F540E /* ClothParticle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClothParticle.h; sourceTree = "<group>"; };
 		CDDA13D11A397538003F540E /* ClothSpring.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClothSpring.h; sourceTree = "<group>"; };
-		CDE5327D1A42DF4D00F5EEB0 /* CircleDetection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CircleDetection.h; sourceTree = "<group>"; };
-		CDE532801A42E03C00F5EEB0 /* CircleDetection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CircleDetection.cpp; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E45BE9710E8CC7DD009D7055 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
 		E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
@@ -478,8 +478,8 @@
 				CDDA13CE1A397442003F540E /* ClothParticle.h */,
 				CDDA13D11A397538003F540E /* ClothSpring.h */,
 				CD24A22C1A3D6CC80008CB57 /* FingerAcceleration.h */,
-				CDE532801A42E03C00F5EEB0 /* CircleDetection.cpp */,
-				CDE5327D1A42DF4D00F5EEB0 /* CircleDetection.h */,
+				CD1C972B1A4E864F00FFA81B /* LeapMotion.cpp */,
+				CD1C972C1A4E864F00FFA81B /* LeapMotion.h */,
 				CD4FF4B41A30585000385524 /* Particle.h */,
 			);
 			path = src;
@@ -604,8 +604,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
-				CDE532811A42E03C00F5EEB0 /* CircleDetection.cpp in Sources */,
 				CD1C972A1A4E77D200FFA81B /* ClothEffect.cpp in Sources */,
+				CD1C972D1A4E864F00FFA81B /* LeapMotion.cpp in Sources */,
 				CD4FF4B61A30587A00385524 /* Particle.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
 			);
