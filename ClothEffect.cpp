@@ -101,7 +101,7 @@ void ClothEffect::update(){
 //---------------------------------------------------------------------
 void ClothEffect::draw(){
     
-    //ofTranslate(ofGetWidth()/2-200, 100, -300);
+    ofTranslate(ofGetWidth()/2-200, 100, -300);
     
     //springs
     ofSetColor(255, 255, 255);
@@ -120,6 +120,8 @@ void ClothEffect::draw(){
         glVertex3f(ps[i].pos.x, ps[i].pos.y, ps[i].pos.z);
     }
     glEnd();
+    
+    ofTranslate(ofGetWidth()/2+200, -100, 300);
 
 }
 

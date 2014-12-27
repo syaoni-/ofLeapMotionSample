@@ -46,60 +46,7 @@ void ofApp::setup(){
 //    paa.loadImage("paa.jpeg");
     
     //----------------------------------------------Cloth Particle
-    
     clotheffect.setup();
-    
-    int rows = 20;
-    int cols = 20;
-    
-    //position all particles
-    for (int i=0; i<rows*cols; i++) {
-        int x = int(i) % cols * 20;
-        int y = int(i) / cols * 20;
-        ClothParticle p(ofVec3f(x,y,0), y==0 ? 0 : 1, 0.96);
-        ps.push_back(p);
-    }
-    
-    //create all springs
-    for (int i=0; i<rows*cols; i++) {
-        int x = int(i) % cols;
-        int y = int(i) / cols;
-        
-        //horizontal structural springs
-        if (x<cols-1) {
-            sp.push_back(ClothSpring(&ps[i],&ps[i+1]));
-        }
-        
-        //vertical structural springs
-        if (y<rows-1) {
-            sp.push_back(ClothSpring(&ps[i],&ps[i+cols]));
-        }
-        
-        //shear springs left to right
-        if (x<cols-1 && y<rows-1) {
-            sp.push_back(ClothSpring(&ps[i],&ps[i+cols+1]));
-        }
-        
-        //shear springs right to left
-        if (y>0 && x<cols-1 && y<rows) {
-            sp.push_back(ClothSpring(&ps[i],&ps[i-cols+1]));
-        }
-        
-        //bending springs horizontal
-        if (x<cols-2) {
-            sp.push_back(ClothSpring(&ps[i],&ps[i+2]));
-        }
-        
-        //bending springs vertical
-        if (y<rows-2) {
-            sp.push_back(ClothSpring(&ps[i],&ps[i+2*cols]));
-        }
-        
-        //bending springs diagonal
-        if (y<rows-2 && x<cols-2) {
-            sp.push_back(ClothSpring(&ps[i],&ps[i+2+2*cols]));
-        }
-    }
 
 }
 
@@ -120,31 +67,7 @@ void ofApp::update(){
     
     //----------------------------------------------Cloth Particle
     clotheffect.update();
-    //apply forces
-    ofVec3f fingerDir;
-    for (int i=0; i<ps.size(); i++) {
-        ps[i].addForce(ofVec3f(0,1.1,0)); //Gravity?
-        //ps[i].addForce(ofVec3f(0,0,sin(ofGetElapsedTimef() * 1.6)*8)); //前後に振る
-        
-        //指との距離が一定値以下なら力を加える
-        for (int j = 0; j < 5; j++) {
-            fingerDir = ps[i].pos - fingerPos[j];
-            if ( fingerDir.length() < 40)
-                ps[i].addForce( fingerDir.normalize()*1000 );
-        }
-    }
-    
-    //update springs
-    for (int i=0; i<sp.size(); i++) {
-        sp[i].update();
-    }
-    
-    //update particles
-    for (int i=0; i<ps.size(); i++) {
-        ps[i].update();
-    }
 
-    
 }
 
 //--------------------------------------------------------------
@@ -297,29 +220,9 @@ void ofApp::draw(){
 
     
     //-----------------------------------------------------Cloth Particle
-    ofTranslate(ofGetWidth()/2-200, 100, -300);
-    
     clotheffect.draw();
-    
-    //springs
-    ofSetColor(255, 255, 255);
-    glBegin(GL_LINES);
-    for (int i=0; i<sp.size(); i++) {
-        glVertex3f(sp[i].a->pos.x, sp[i].a->pos.y, sp[i].a->pos.z);
-        glVertex3f(sp[i].b->pos.x, sp[i].b->pos.y, sp[i].b->pos.z);
-    }
-    glEnd();
-    
-    //particles
-    ofSetColor(0, 0, 255);
-    glPointSize(5);
-    glBegin(GL_POINTS);
-    for (int i=0; i<ps.size(); i++) {
-        glVertex3f(ps[i].pos.x, ps[i].pos.y, ps[i].pos.z);
-    }
-    glEnd();
-    
 }
+
 
 void ofApp::drawSphere(Vector vector, float radius) {
     // 球体の描画処理
