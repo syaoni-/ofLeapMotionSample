@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
+		CD1C972A1A4E77D200FFA81B /* ClothEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD1C97281A4E77D200FFA81B /* ClothEffect.cpp */; };
 		CD4FF4AF1A303D6400385524 /* libLeap.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CD4FF4AE1A303D6400385524 /* libLeap.dylib */; };
 		CD4FF4B11A3040CF00385524 /* libLeap.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = CD4FF4B01A3040CF00385524 /* libLeap.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		CD4FF4B61A30587A00385524 /* Particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD4FF4B51A30587A00385524 /* Particle.cpp */; };
@@ -79,6 +80,8 @@
 
 /* Begin PBXFileReference section */
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
+		CD1C97281A4E77D200FFA81B /* ClothEffect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClothEffect.cpp; path = ../ClothEffect.cpp; sourceTree = "<group>"; };
+		CD1C97291A4E77D200FFA81B /* ClothEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClothEffect.h; path = ../ClothEffect.h; sourceTree = "<group>"; };
 		CD24A22C1A3D6CC80008CB57 /* FingerAcceleration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FingerAcceleration.h; sourceTree = "<group>"; };
 		CD4FF4641A3037D500385524 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		CD4FF4651A3037D900385524 /* addon_config.mk */ = {isa = PBXFileReference; lastKnownFileType = text; path = addon_config.mk; sourceTree = "<group>"; };
@@ -471,6 +474,8 @@
 				CD4FF4B51A30587A00385524 /* Particle.cpp */,
 				CDE532801A42E03C00F5EEB0 /* CircleDetection.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
+				CD1C97281A4E77D200FFA81B /* ClothEffect.cpp */,
+				CD1C97291A4E77D200FFA81B /* ClothEffect.h */,
 				CDDA13CE1A397442003F540E /* ClothParticle.h */,
 				CDDA13D11A397538003F540E /* ClothSpring.h */,
 				CD24A22C1A3D6CC80008CB57 /* FingerAcceleration.h */,
@@ -600,6 +605,7 @@
 			files = (
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				CDE532811A42E03C00F5EEB0 /* CircleDetection.cpp in Sources */,
+				CD1C972A1A4E77D200FFA81B /* ClothEffect.cpp in Sources */,
 				CD4FF4B61A30587A00385524 /* Particle.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
 			);

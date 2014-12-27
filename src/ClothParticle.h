@@ -26,9 +26,6 @@ struct ClothParticle {
         forces.y = 0;
         forces.z = 0;
         vel.limit(15);
-//        pos.x += vel.x;
-//        pos.y += vel.y;
-//        pos.z += vel.z;
         pos += vel;
         vel *= drag;
     }
@@ -36,4 +33,5 @@ struct ClothParticle {
     void addForce(ofVec3f oForce) {
         forces += oForce;
     }
+    
 };
