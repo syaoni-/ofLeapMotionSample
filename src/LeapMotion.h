@@ -11,7 +11,7 @@
 #include "ofxLeapMotion.h"
 
 #define FINGER_NUM 10
-#define LOG_NUM 10
+#define LOG_NUM 60
 
 class LeapMotion : public ofBaseApp{
     public:
@@ -54,6 +54,7 @@ class LeapMotion : public ofBaseApp{
         ofVec3f preFingerPos[FINGER_NUM]; //前フレームの指の位置
     
         /* 加速度 */
+        list<ofVec3f> accelVecLog;
         float fingerAcceleration[FINGER_NUM];
     
         /* グー・チョキ・パーの画像（デバッグ用） */

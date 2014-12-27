@@ -52,6 +52,7 @@ void LeapMotion::setup(){
     choki.loadImage("choki.png");
     paa.loadImage("paa.jpeg");
 
+    accelVecLog.resize(LOG_NUM);
 }
 
 
@@ -97,6 +98,8 @@ void LeapMotion::draw(){
             ofVec3f difPos = ( fingerPos[(i+1)*j] - preFingerPos[(i+1)*j] );
             fingerAcceleration[(i+1)*j] = difPos.length();
             moveDirection = difPos;
+            accelVecLog.pop_front();
+            accelVecLog.push_back(difPos);
         }
         // Handを描画
         drawPalm(hand);
@@ -361,7 +364,32 @@ bool LeapMotion::paaDic(ofVec3f hPos, ofVec3f *fPos){
 //---------------------------------------------------------------------
 //拍検知
 bool LeapMotion::beatDetection(){
-    return false;
+    
+    int counter=0;
+    float transVal1 = 0.0;
+    float transVal2 = 0.0;
+    
+    for (list<ofVec3f>::iterator ac = accelVecLog.begin(); ac != accelVecLog.end(); ac++) {
+        if (counter < LOG_NUM/2) {
+            transVal1 += (*ac).y;
+        } else {
+            transVal2 += (*ac).y;
+        }
+        counter++;
+    }
+    
+    transVal1 /= LOG_NUM/2;
+    transVal2 /= LOG_NUM/2;
+    
+    printf("%f : %f\n",transVal1, transVal2);
+    
+    if (signbit(transVal1))
+        return false;
+    
+    if (!signbit(transVal2))
+        return false;
+    
+    return true;
 }
 
 
