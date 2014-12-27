@@ -11,8 +11,8 @@
 //---------------------------------------------------------------------
 void ClothEffect::setup(){
     
-    ofSetFrameRate(60);
-    ofSetVerticalSync(true);
+//    ofSetFrameRate(60);
+//    ofSetVerticalSync(true);
     
     printf("hoge");
     
@@ -101,7 +101,7 @@ void ClothEffect::update(){
 //---------------------------------------------------------------------
 void ClothEffect::draw(){
     
-    ofTranslate(ofGetWidth()/2-200, 100, -300);
+    //ofTranslate(ofGetWidth()/2-200, 100, -300);
     
     //springs
     ofSetColor(255, 255, 255);

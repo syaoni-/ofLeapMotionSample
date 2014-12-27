@@ -47,6 +47,8 @@ void ofApp::setup(){
     
     //----------------------------------------------Cloth Particle
     
+    clotheffect.setup();
+    
     int rows = 20;
     int cols = 20;
     
@@ -117,6 +119,7 @@ void ofApp::update(){
     }
     
     //----------------------------------------------Cloth Particle
+    clotheffect.update();
     //apply forces
     ofVec3f fingerDir;
     for (int i=0; i<ps.size(); i++) {
@@ -295,6 +298,8 @@ void ofApp::draw(){
     
     //-----------------------------------------------------Cloth Particle
     ofTranslate(ofGetWidth()/2-200, 100, -300);
+    
+    clotheffect.draw();
     
     //springs
     ofSetColor(255, 255, 255);

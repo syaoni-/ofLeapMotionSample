@@ -4,6 +4,7 @@
 #include "ofMath.h"
 #include "Particle.h"
 #include "ofxLeapMotion.h"
+#include "ClothEffect.h"
 #include "ClothParticle.h"
 #include "ClothSpring.h"
 #include "FingerAcceleration.h"
@@ -78,4 +79,5 @@ class ofApp : public ofBaseApp{
         vector <ClothParticle> ps;
         vector <ClothSpring> sp;
     
+        ClothEffect clotheffect;
 };
