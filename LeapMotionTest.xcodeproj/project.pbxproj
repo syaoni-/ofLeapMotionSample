@@ -84,7 +84,6 @@
 		CD1C97291A4E77D200FFA81B /* ClothEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClothEffect.h; path = ../ClothEffect.h; sourceTree = "<group>"; };
 		CD1C972B1A4E864F00FFA81B /* LeapMotion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LeapMotion.cpp; sourceTree = "<group>"; };
 		CD1C972C1A4E864F00FFA81B /* LeapMotion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeapMotion.h; sourceTree = "<group>"; };
-		CD24A22C1A3D6CC80008CB57 /* FingerAcceleration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FingerAcceleration.h; sourceTree = "<group>"; };
 		CD4FF4641A3037D500385524 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		CD4FF4651A3037D900385524 /* addon_config.mk */ = {isa = PBXFileReference; lastKnownFileType = text; path = addon_config.mk; sourceTree = "<group>"; };
 		CD4FF4671A3037D900385524 /* addons.make */ = {isa = PBXFileReference; lastKnownFileType = text; path = addons.make; sourceTree = "<group>"; };
@@ -477,7 +476,6 @@
 				CD1C97291A4E77D200FFA81B /* ClothEffect.h */,
 				CDDA13CE1A397442003F540E /* ClothParticle.h */,
 				CDDA13D11A397538003F540E /* ClothSpring.h */,
-				CD24A22C1A3D6CC80008CB57 /* FingerAcceleration.h */,
 				CD1C972B1A4E864F00FFA81B /* LeapMotion.cpp */,
 				CD1C972C1A4E864F00FFA81B /* LeapMotion.h */,
 				CD4FF4B41A30585000385524 /* Particle.h */,

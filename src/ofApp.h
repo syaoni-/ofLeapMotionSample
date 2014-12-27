@@ -1,18 +1,12 @@
 #pragma once
 
-#include "ofMain.h"
 #include "ofMath.h"
 #include "Particle.h"
 #include "ofxLeapMotion.h"
 #include "LeapMotion.h"
 #include "ClothEffect.h"
-#include "ClothParticle.h"
-#include "ClothSpring.h"
-#include "FingerAcceleration.h"
 
-//#define NUM 100
 #define FINGER_NUM 10
-//#define LOG_INTERVAL 0.5
 #define LOG_NUM 10
 
 class ofApp : public ofBaseApp{
