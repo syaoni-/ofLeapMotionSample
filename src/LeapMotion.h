@@ -34,9 +34,11 @@ class LeapMotion : public ofBaseApp{
         bool chokiDic(ofVec3f hPos, ofVec3f *fPos);
         bool paaDic(ofVec3f hPos, ofVec3f *fPos);
     
+        void getController(Controller customCon);
+    
     private:
         // Leap Motionのコントローラー
-        Controller controller;
+        Leap::Controller controller;
         // カメラ
         ofCamera camera;
         // 球体の描画処理

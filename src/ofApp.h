@@ -4,6 +4,7 @@
 #include "ofMath.h"
 #include "Particle.h"
 #include "ofxLeapMotion.h"
+#include "LeapMotion.h"
 #include "ClothEffect.h"
 #include "ClothParticle.h"
 #include "ClothSpring.h"
@@ -35,49 +36,9 @@ class ofApp : public ofBaseApp{
         vector <Particle> particles;
 
     //----------------------------------------------------LeapMotion
-    
-        // Leap Motionのコントローラー
-        Controller controller;
-        // カメラ
-        ofCamera camera;
-        // 球体の描画処理
-        void drawSphere(Leap::Vector vector, float radius);
-    
-        float camdistance;
-        float camdegree;
-        void drawFinger(Finger finger);
-        void drawPoint(ofPoint point);
-        void drawFingerBox(Finger finger, ofPoint tip, ofPoint base);
-        void drawPalm(Hand hand);
-        ofVec3f fingerPos[FINGER_NUM];
-        ofVec3f preFingerPos[FINGER_NUM]; //前フレームの指の位置
-
-        /* 加速度 */
-        float fingerAcceleration[FINGER_NUM];
-
-    
-        /* 手の検知 */
-        bool guuDic(ofVec3f *fPos);
-        bool chokiDic(ofVec3f hPos, ofVec3f *fPos);
-        bool paaDic(ofVec3f hPos, ofVec3f *fPos);
-        ofImage guu;
-        ofImage choki;
-        ofImage paa;
-    
-        /* 動いている方向 */
-        ofVec3f preMoveDirection;
-        ofVec3f moveDirection;
-        ofVec3f aboutMoveDirection;
-    
-        /* 叩き */
-        bool slapDec();
-    
-        /* 拍 */
-        bool beatDetection();
+    LeapMotion leapMotion;
     
     //-----------------------------------------------------Cloth Particle
-        vector <ClothParticle> ps;
-        vector <ClothSpring> sp;
     
         ClothEffect clotheffect;
 };

@@ -11,10 +11,6 @@
 //---------------------------------------------------------------------
 void ClothEffect::setup(){
     
-//    ofSetFrameRate(60);
-//    ofSetVerticalSync(true);
-    
-    printf("hoge");
     
     //position all particles
     for (int i=0; i<ROWS*COLS; i++) {

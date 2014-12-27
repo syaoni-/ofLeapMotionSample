@@ -1,6 +1,8 @@
 #include "ofMain.h"
 #include "ofApp.h"
 #include "ClothEffect.h"
+#include "LeapMotion.h"
+#include "ofxLeapMotion.h"
 
 //========================================================================
 int main( ){

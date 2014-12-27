@@ -151,6 +151,35 @@ void LeapMotion::draw(){
     aboutMoveDirection.y < -0.8 ? aboutMoveDirection.y = -1 : NULL;
 
     
+    //-----------------------------------------------------Debug
+        /* 人差し指の座標 */
+        string clothMessage = "current fingerPos[1] x : " + ofToString(fingerPos[1].x) + " y : " + ofToString(fingerPos[1].y) + " z : " + ofToString(fingerPos[1].z);
+        ofDrawBitmapString(clothMessage, 20, 40);
+    
+        /* 人差し指の加速度 */
+        string accelMessage = "current finger[1] acceleration = " + ofToString(fingerAcceleration[1],0);
+        ofDrawBitmapString(accelMessage, 20, 60);
+    
+        /* 人差し指の加速度を色で分かりやすく */
+        ofSetColor(fingerAcceleration[1], fingerAcceleration[1], 0);
+        ofFill();
+        ofCircle(50, 100, 30);
+    
+        /* 手の形状検知 */
+        ofSetColor(255, 255, 255);
+        if( guuDic(fingerPos) ) guu.draw(20, 150, 50, 50); //グー描画
+        if( chokiDic(handPos, fingerPos) ) choki.draw(60, 150, 50, 50); //チョキ描画
+        if( paaDic(handPos, fingerPos) ) paa.draw(100, 150, 50, 50); //パー描画
+    
+        /* 手の動く方向 */
+        ofTriangle(50, 250, 100, 250, 75, 250 + 50*aboutMoveDirection.y);
+        ofTriangle(75, 300, 75, 350, 75+50*aboutMoveDirection.x, 325);
+        
+        
+        /* 叩き */
+        if (beatDetection()) ofCircle(50, 400, 50);
+
+    
     
     //-----------------------------------------------------Leap Motion
     ofSetColor(255, 255, 0);
@@ -164,6 +193,14 @@ void LeapMotion::draw(){
 }
 
 
+//--------------------------------------------------------------------
+//カスタムされたコントローラの取得
+void LeapMotion::getController(Controller customCon){
+    controller = customCon;
+}
+
+
+//---------------------------------------------------------------------
 void LeapMotion::drawSphere(Vector vector, float radius) {
     // 球体の描画処理
     ofNoFill();
@@ -179,6 +216,7 @@ void LeapMotion::drawSphere(Vector vector, float radius) {
 }
 
 
+//---------------------------------------------------------------------
 void LeapMotion::drawFinger(Finger finger) {
     
     // 指先の点を描画
@@ -206,6 +244,7 @@ void LeapMotion::drawFinger(Finger finger) {
 }
 
 
+//---------------------------------------------------------------------
 // 点を描画
 void LeapMotion::drawPoint(ofPoint point) {
     
@@ -218,6 +257,7 @@ void LeapMotion::drawPoint(ofPoint point) {
 }
 
 
+//---------------------------------------------------------------------
 // 指の箱を描画
 void LeapMotion::drawFingerBox(Finger finger, ofPoint tip, ofPoint base) {
     
@@ -240,6 +280,8 @@ void LeapMotion::drawFingerBox(Finger finger, ofPoint tip, ofPoint base) {
     ofPopMatrix();
 }
 
+
+//---------------------------------------------------------------------
 void LeapMotion::drawPalm(Hand hand) {
     // 掌の描画処理
     
@@ -265,6 +307,7 @@ void LeapMotion::drawPalm(Hand hand) {
 }
 
 
+//---------------------------------------------------------------------
 //グーの形状検知
 bool LeapMotion::guuDic(ofVec3f *fPos){
     for(int i=1; i<5; i++) {
@@ -276,7 +319,7 @@ bool LeapMotion::guuDic(ofVec3f *fPos){
 }
 
 
-//TODO
+//---------------------------------------------------------------------
 //チョキの形状検知
 bool LeapMotion::chokiDic(ofVec3f hPos, ofVec3f *fPos){
     
@@ -295,7 +338,7 @@ bool LeapMotion::chokiDic(ofVec3f hPos, ofVec3f *fPos){
 }
 
 
-//TODO
+//---------------------------------------------------------------------
 //パーの形状検知
 bool LeapMotion::paaDic(ofVec3f hPos, ofVec3f *fPos){
     
@@ -315,6 +358,7 @@ bool LeapMotion::paaDic(ofVec3f hPos, ofVec3f *fPos){
 }
 
 
+//---------------------------------------------------------------------
 //拍検知
 bool LeapMotion::beatDetection(){
     return false;
@@ -325,6 +369,37 @@ bool LeapMotion::beatDetection(){
 //---------------------------------------------------------------------
 void LeapMotion::keyPressed(int key){
     
+        if (key == 'f') {
+            ofToggleFullscreen();
+        }
+    
+    
+        /* move camera */
+        switch (key) {
+            case 358: // 右
+                camdegree += 5;
+                if(camdegree > 360) camdegree = 0;
+                break;
+            case 356: // 左
+                camdegree -= 5;
+                if(camdegree < 0) camdegree = 360;
+                break;
+            case 357: // 上
+                camdistance -= 10;
+                break;
+            case 359: // 下
+                camdistance += 10;
+                break;
+            default:
+                break;
+        }
+    
+        float radian = ofDegToRad(camdegree);
+        float x = camdistance * cos(radian);
+        float z = camdistance * sin(radian);
+        
+        camera.setPosition(x, camera.getY(), z);
+        camera.lookAt(ofVec3f(0, 200, 0));
 }
 
 //---------------------------------------------------------------------
