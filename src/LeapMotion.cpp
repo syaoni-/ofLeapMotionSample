@@ -186,7 +186,7 @@ void LeapMotion::draw(){
         ofTriangle(75, 300, 75, 350, 75+50*aboutMoveDirection.x, 325);
     
         /* 叩き */
-        if (TurningPosDetection()) ofCircle(50, 400, 50);
+        if (turningDetection()) ofCircle(50, 400, 50);
     
     
     //-----------------------------------------------------Leap Motion
@@ -401,7 +401,7 @@ bool LeapMotion::beatDetection(){
 
 //---------------------------------------------------------------------
 //上昇から下降へ移行する動きの検知
-bool LeapMotion::TurningPosDetection(){
+bool LeapMotion::turningDetection(){
     
     int counter = 0;
     float transVal1 = 0.0;

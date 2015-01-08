@@ -75,7 +75,7 @@ class LeapMotion : public ofBaseApp{
     
         /* 拍 */
         bool beatDetection();
-        bool TurningPosDetection(); //上昇・下降の変わり目検知
+        bool turningDetection(); //上昇・下降の変わり目検知
         int turningVec; //上昇・下降の検知の切り替えフラグ
         ofVec3f preTurningPos;
         list<ofVec3f> turningVecLog;
