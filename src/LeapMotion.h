@@ -12,7 +12,7 @@
 
 #define FINGER_NUM 10
 #define LOG_NUM 60
-#define BEAT_DISTANS_MIN 5
+#define BEAT_DISTANS_MIN 10
 
 class LeapMotion : public ofBaseApp{
     public:
@@ -78,6 +78,7 @@ class LeapMotion : public ofBaseApp{
         bool turningDetection(); //上昇・下降の変わり目検知
         int turningVec; //上昇・下降の検知の切り替えフラグ
         ofVec3f preTurningPos;
+        int counter1;
         list<ofVec3f> turningVecLog;
         list<ofVec3f> turningDisLog;
 

@@ -386,8 +386,6 @@ bool LeapMotion::beatDetection(){
     transVal1 /= LOG_NUM/2;
     transVal2 /= LOG_NUM/2;
     
-    printf("%f : %f\n",transVal1, transVal2);
-    
     if (signbit(transVal1))
         return false;
     
@@ -419,19 +417,26 @@ bool LeapMotion::turningDetection(){
     transVal1 /= LOG_NUM/2;
     transVal2 /= LOG_NUM/2;
     
-    printf("%f : %f\n",transVal1, transVal2);
-    
+    //変化値が上昇・下降と変化した場合
     if (signbit(transVal1))
         return false;
-    
     if (!signbit(transVal2))
         return false;
+    
+    //前回のターニングポイントとの距離が近すぎる場合は検知しない
+    float difY = abs(currentTaktPos.y - preTurningPos.y);
+    if (difY < BEAT_DISTANS_MIN) {
+        return false;
+    }
     
     //ターニングポイントの位置を記録
     preTurningPos = currentTaktPos;
     
     //上昇・下降検知の切り替え
     turningVec *= -1;
+    
+    counter1++;
+    printf("%d : %f\n",counter1,difY);
     
     return true;
     
