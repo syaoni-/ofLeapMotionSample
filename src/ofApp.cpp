@@ -58,7 +58,7 @@ void ofApp::draw(){
     ofEndShape();
     
     //-----------------------------------------------------Cloth Particle
-    clotheffect.draw();
+    //clotheffect.draw();
 }
 
 

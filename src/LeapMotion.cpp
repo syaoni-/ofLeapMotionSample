@@ -53,6 +53,7 @@ void LeapMotion::setup(){
     paa.loadImage("paa.jpeg");
 
     accelVecLog.resize(LOG_NUM);
+    turningVec = 1;
 }
 
 
@@ -95,6 +96,12 @@ void LeapMotion::draw(){
             fingerPos[(i+1)*j].x = finger.tipPosition().x*2;
             fingerPos[(i+1)*j].y = -finger.tipPosition().y*2 + ofGetHeight();
             fingerPos[(i+1)*j].z = finger.tipPosition().z + 50;
+            
+            pretaktPos = currentTaktPos;
+            currentTaktPos.x = finger.tipPosition().x*2;
+            currentTaktPos.y = -finger.tipPosition().y*2 + ofGetHeight();
+            currentTaktPos.z = finger.tipPosition().z + 50;
+            
             ofVec3f difPos = ( fingerPos[(i+1)*j] - preFingerPos[(i+1)*j] );
             fingerAcceleration[(i+1)*j] = difPos.length();
             moveDirection = difPos;
@@ -177,11 +184,9 @@ void LeapMotion::draw(){
         /* 手の動く方向 */
         ofTriangle(50, 250, 100, 250, 75, 250 + 50*aboutMoveDirection.y);
         ofTriangle(75, 300, 75, 350, 75+50*aboutMoveDirection.x, 325);
-        
-        
+    
         /* 叩き */
-        if (beatDetection()) ofCircle(50, 400, 50);
-
+        if (TurningPosDetection()) ofCircle(50, 400, 50);
     
     
     //-----------------------------------------------------Leap Motion
@@ -392,6 +397,45 @@ bool LeapMotion::beatDetection(){
     return true;
 }
 
+
+
+//---------------------------------------------------------------------
+//上昇から下降へ移行する動きの検知
+bool LeapMotion::TurningPosDetection(){
+    
+    int counter = 0;
+    float transVal1 = 0.0;
+    float transVal2 = 0.0;
+    
+    for (list<ofVec3f>::iterator ac = accelVecLog.begin(); ac != accelVecLog.end(); ac++) {
+        if (counter < LOG_NUM/2) {
+            transVal1 += (*ac).y*(turningVec);
+        } else {
+            transVal2 += (*ac).y*(turningVec);
+        }
+        counter++;
+    }
+    
+    transVal1 /= LOG_NUM/2;
+    transVal2 /= LOG_NUM/2;
+    
+    printf("%f : %f\n",transVal1, transVal2);
+    
+    if (signbit(transVal1))
+        return false;
+    
+    if (!signbit(transVal2))
+        return false;
+    
+    //ターニングポイントの位置を記録
+    preTurningPos = currentTaktPos;
+    
+    //上昇・下降検知の切り替え
+    turningVec *= -1;
+    
+    return true;
+    
+}
 
 
 //---------------------------------------------------------------------
